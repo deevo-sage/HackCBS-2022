@@ -1,7 +1,8 @@
-import { Flex, Row, Text } from "native-base";
+import { Avatar, Button, Column, Flex, Row, Text } from "native-base";
 import { useWalletConnect } from "@walletconnect/react-native-dapp";
 import { addressCompress } from "../utils";
-import { RootStackScreenProps } from "../types";
+import { RootStackParamList, RootStackScreenProps } from "../types";
+import { useNavigation } from "@react-navigation/native";
 
 export function Home({ navigation }: RootStackScreenProps<"Home">) {
   const connector = useWalletConnect();
@@ -14,6 +15,52 @@ export function Home({ navigation }: RootStackScreenProps<"Home">) {
           {addressCompress(connector?.accounts?.[0])}
         </Text>
       </Row>
+      <Column mt="12" w="100%" alignItems={"center"} space="4">
+        <Row
+          w="85%"
+          p="4"
+          borderRadius={4}
+          justifyContent={"space-between"}
+          borderColor={"brand.mute"}
+          borderWidth="2"
+        >
+          {buttons.map((item, i) => {
+            return <PressableWithIcon {...item} key={i} />;
+          })}
+        </Row>
+      </Column>
     </Flex>
+  );
+}
+
+interface PressableWithIconProps {
+  icon: string;
+  title: string;
+  screen?: keyof RootStackParamList;
+}
+
+const buttons: PressableWithIconProps[] = [
+  { icon: "", title: "Vault", screen: "Vault" },
+];
+
+function PressableWithIcon({ icon, title, screen }: PressableWithIconProps) {
+  const nav = useNavigation();
+  return (
+    <Button
+      variant="ghost"
+      p={0}
+      bg="transparent"
+      h="70"
+      flex={"1"}
+      isDisabled={!screen}
+      onPress={() => {
+        nav.navigate(screen as any);
+      }}
+    >
+      <Flex alignItems={"center"} flex="1">
+        <Avatar bg="brand.foreground" mb="2" />
+        <Text>{title}</Text>
+      </Flex>
+    </Button>
   );
 }

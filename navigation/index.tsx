@@ -7,6 +7,7 @@ import { Home, WalletConnect } from "../screens";
 import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { useWalletConnect } from "@walletconnect/react-native-dapp";
+import { Vault } from "../screens/vault";
 
 export default function Navigation({
   colorScheme,
@@ -27,7 +28,6 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   const connector = useWalletConnect();
-  if (!connector?.accounts?.[0]) {
     return (
       <Stack.Navigator
         initialRouteName="WalletConnect"
@@ -45,7 +45,7 @@ function RootNavigator() {
 
   return (
     <Stack.Navigator
-      initialRouteName={"WalletConnect"}
+      initialRouteName={"Home"}
       screenOptions={{
         headerStyle: { backgroundColor: colors.brand.bg },
         headerShadowVisible: false,
@@ -62,6 +62,11 @@ function RootNavigator() {
       <Stack.Screen
         name="Home"
         component={Home}
+        options={{ headerBackVisible: false }}
+      />
+      <Stack.Screen
+        name="Vault"
+        component={Vault}
         options={{ headerBackVisible: false }}
       />
     </Stack.Navigator>

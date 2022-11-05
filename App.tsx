@@ -1,7 +1,7 @@
 import "react-native-get-random-values";
 import "@ethersproject/shims";
 import { StatusBar } from "expo-status-bar";
-import { NativeBaseProvider, theme } from "native-base";
+import { NativeBaseProvider } from "native-base";
 import { Platform, StyleSheet } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import useCachedResources from "./hooks/useCachedResources";
@@ -9,6 +9,8 @@ import Navigation from "./navigation";
 import WalletConnectProvider from "@walletconnect/react-native-dapp";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import "./global";
+import { theme } from "./constants/nativeBase";
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
   if (!isLoadingComplete) {
