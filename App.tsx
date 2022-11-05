@@ -1,20 +1,35 @@
+import "react-native-get-random-values";
+import "@ethersproject/shims";
 import { StatusBar } from "expo-status-bar";
 import { NativeBaseProvider, theme } from "native-base";
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import useCachedResources from "./hooks/useCachedResources";
-
+import Navigation from "./navigation";
+import WalletConnectProvider from "@walletconnect/react-native-dapp";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import "./global";
 export default function App() {
   const isLoadingComplete = useCachedResources();
   if (!isLoadingComplete) {
     return null;
   } else {
     return (
-      <NativeBaseProvider theme={theme}>
-        <View style={styles.container}>
-          <Text>Open up App.tsx to start working on your app!</Text>
-          <StatusBar style="auto" />
-        </View>
-      </NativeBaseProvider>
+      <WalletConnectProvider
+        redirectUrl={
+          Platform.OS === "web" ? window.location.origin : "yonkopay://"
+        }
+        storageOptions={{
+          asyncStorage: AsyncStorage,
+        }}
+      >
+        <NativeBaseProvider theme={theme}>
+          <SafeAreaProvider>
+            <Navigation colorScheme={"dark"} />
+            <StatusBar style="auto" />
+          </SafeAreaProvider>
+        </NativeBaseProvider>
+      </WalletConnectProvider>
     );
   }
 }
