@@ -11,6 +11,7 @@ import {
 } from "native-base";
 import { useSetUser, useUser } from "../zustand";
 import { RootStackScreenProps } from "../types";
+import { addressCompress } from "../utils";
 
 export function Account({ navigation }: RootStackScreenProps<"Account">) {
   const user = useUser();
@@ -20,7 +21,7 @@ export function Account({ navigation }: RootStackScreenProps<"Account">) {
       <Row mb="4">
         <Text fontSize={"xl"}>Hello </Text>
         <Text fontSize={"xl"} color="brand.highlight" fontWeight={"semibold"}>
-          {user?.name}
+          {addressCompress(user?.address || "")}
         </Text>
         <Text fontSize={"xl"}>!</Text>
       </Row>

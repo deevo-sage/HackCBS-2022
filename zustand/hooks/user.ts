@@ -7,3 +7,7 @@ export function useUser() {
 export function useSetUser() {
   return useStore((state) => state.user.updateUser);
 }
+
+export function useUserFetch() {
+  return useStore((state) => state.user.onSignin);
+}

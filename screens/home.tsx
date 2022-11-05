@@ -3,16 +3,17 @@ import { useWalletConnect } from "@walletconnect/react-native-dapp";
 import { addressCompress } from "../utils";
 import { RootStackParamList, RootStackScreenProps } from "../types";
 import { useNavigation } from "@react-navigation/native";
+import { useUser } from "../zustand";
 
 export function Home({ navigation }: RootStackScreenProps<"Home">) {
   const connector = useWalletConnect();
-
+  const user = useUser();
   return (
     <Flex flex="1">
       <Row mb="0" mx="4">
         <Text fontSize={"xl"}>Welcome </Text>
         <Text fontSize={"xl"} color="brand.highlight" fontWeight={"semibold"}>
-          {addressCompress(connector?.accounts?.[0])}
+          {addressCompress(user?.address || "")}
         </Text>
       </Row>
       <Column mt="12" w="100%" alignItems={"center"} space="4">

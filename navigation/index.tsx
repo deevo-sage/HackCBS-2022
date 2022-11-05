@@ -7,6 +7,7 @@ import { Home, WalletConnect, Vault, Account } from "../screens";
 import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { useWalletConnect } from "@walletconnect/react-native-dapp";
+import { useUserFetch } from "../zustand";
 
 export default function Navigation({
   colorScheme,
@@ -27,7 +28,13 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   const connector = useWalletConnect();
-  if (!connector?.accounts?.[0] && false) {
+  const fetchUser = useUserFetch();
+  React.useEffect(() => {
+    if (connector?.accounts?.[0]) {
+      fetchUser(connector.accounts[0]);
+    }
+  }, [connector.accounts]);
+  if (!connector?.accounts?.[0]) {
     return (
       <Stack.Navigator
         initialRouteName="WalletConnect"

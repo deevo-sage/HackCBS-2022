@@ -44,10 +44,11 @@ export const createUserSlice: StoreSlice<UserSlice, UserSlice> = (
     },
     onSignin: async (address) => {
       set((state) => {
+        state.user.data = { address };
         state.user.status = "loading";
       });
 
-      const user = await axios.get<User>("user?address=" + address);
+      const user = await axios.get<User>("user/" + address);
       if (user.status === 404) {
         const newUser = await axios.post<User>("user/create", {
           address,
@@ -70,7 +71,7 @@ export const createUserSlice: StoreSlice<UserSlice, UserSlice> = (
 
       const user = get().user.data;
 
-      await axios.patch("user?address=" + user?.address, {
+      await axios.patch("user/" + user?.address, {
         name,
         vpa,
       });
