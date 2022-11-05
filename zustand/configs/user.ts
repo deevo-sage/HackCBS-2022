@@ -42,14 +42,24 @@ export const createUserSlice: StoreSlice<UserSlice, UserSlice> = (
         state.user.status = "idle";
       });
     },
-
     onSignin: async (address) => {
       set((state) => {
         state.user.status = "loading";
       });
-      const user: User = await axios.get("user?address=" + address);
+
+      const user = await axios.get<User>("user?address=" + address);
+      if (user.status === 404) {
+        const newUser = await axios.post<User>("user/create", {
+          address,
+        });
+        set((state) => {
+          state.user.data = newUser.data;
+          state.user.status = "idle";
+        });
+        return;
+      }
       set((state) => {
-        state.user.data = user;
+        state.user.data = user.data;
         state.user.status = "idle";
       });
     },
