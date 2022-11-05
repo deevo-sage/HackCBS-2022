@@ -10,6 +10,9 @@ import WalletConnectProvider from "@walletconnect/react-native-dapp";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import "./global";
 import { theme } from "./constants/nativeBase";
+import axios from "axios";
+
+axios.defaults.baseURL = process.env.SERVER_URL;
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

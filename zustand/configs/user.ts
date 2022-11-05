@@ -1,5 +1,6 @@
 import { StoreSlice } from "../types";
 import { LocalStorage } from "../../integrations/local-storage";
+import axios from "axios";
 
 export interface User {
   address: string;
@@ -43,9 +44,32 @@ export const createUserSlice: StoreSlice<UserSlice, UserSlice> = (
     },
 
     onSignin: async (address) => {
-      return;
+      set((state) => {
+        state.user.status = "loading";
+      });
+      const user: User = await axios.get("user?address=" + address);
+      set((state) => {
+        state.user.data = user;
+        state.user.status = "idle";
+      });
     },
-    updateUser: async (name, upi) => {
+    updateUser: async (name, vpa) => {
+      set((state) => {
+        state.user.status = "loading";
+      });
+
+      const user = get().user.data;
+
+      await axios.patch("user?address=" + user?.address, {
+        name,
+        vpa,
+      });
+
+      set((state) => {
+        state.user.data = user;
+        state.user.status = "idle";
+      });
+
       return;
     },
   },

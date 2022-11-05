@@ -5,5 +5,5 @@ export function useUser() {
 }
 
 export function useSetUser() {
-  return useStore((state) => state.user.set);
+  return useStore((state) => state.user.updateUser);
 }

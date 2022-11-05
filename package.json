@@ -24,6 +24,7 @@
     "expo-linking": "^3.2.2",
     "expo-splash-screen": "^0.16.2",
     "expo-status-bar": "~1.4.0",
+    "formik": "^2.2.9",
     "https-browserify": "^1.0.0",
     "immer": "^9.0.16",
     "native-base": "^3.4.21",
