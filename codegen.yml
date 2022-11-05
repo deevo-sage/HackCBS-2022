@@ -1,0 +1,11 @@
+schema:
+  - https://hackcbs-2022-backend-development.up.railway.app/graphql
+config:
+  avoidOptionals: true
+generates:
+  graphql/generated-types/graphql-operations.ts:
+    documents: "graphql/**/*.graphql"
+    plugins:
+      - typescript
+      - typescript-operations
+      - typed-document-node

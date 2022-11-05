@@ -3,11 +3,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { ColorSchemeName } from "react-native";
 import { colors, navigationTheme } from "../constants/nativeBase";
-import { Home, WalletConnect } from "../screens";
+import { Home, WalletConnect, Vault, Account } from "../screens";
 import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { useWalletConnect } from "@walletconnect/react-native-dapp";
-import { Vault } from "../screens/vault";
 
 export default function Navigation({
   colorScheme,
@@ -28,6 +27,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   const connector = useWalletConnect();
+  if (!connector?.accounts?.[0] && false) {
     return (
       <Stack.Navigator
         initialRouteName="WalletConnect"
@@ -67,6 +67,11 @@ function RootNavigator() {
       <Stack.Screen
         name="Vault"
         component={Vault}
+        options={{ headerBackVisible: false }}
+      />
+      <Stack.Screen
+        name="Account"
+        component={Account}
         options={{ headerBackVisible: false }}
       />
     </Stack.Navigator>

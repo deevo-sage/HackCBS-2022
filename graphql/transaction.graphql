@@ -1,0 +1,13 @@
+query GetTransaction($id: String!) {
+  transaction(id: $id) {
+    id
+    from
+    status
+    fiatTransactioId
+    txnHash
+    chain
+    gas
+    currency
+    FIAT
+  }
+}
