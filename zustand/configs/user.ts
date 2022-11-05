@@ -48,19 +48,21 @@ export const createUserSlice: StoreSlice<UserSlice, UserSlice> = (
         state.user.status = "loading";
       });
 
-      const user = await axios.get<User>("user/" + address);
-      if (user.status === 404) {
-        const newUser = await axios.post<User>("user/create", {
-          address,
+      const user = await axios
+        .get<User>("user/" + address)
+        .then((res) => res)
+        .catch(async (err) => {
+          console.log({ err: err.response.status });
+          if (err?.response?.status === 404) {
+            const newUser = await axios.post<User>("user", {
+              address,
+            });
+            return { ...newUser, data: { ...newUser.data, address } };
+          }
         });
-        set((state) => {
-          state.user.data = newUser.data;
-          state.user.status = "idle";
-        });
-        return;
-      }
+      console.log({ wow: "run", user2: user.data });
       set((state) => {
-        state.user.data = user.data;
+        state.user.data = user?.data;
         state.user.status = "idle";
       });
     },

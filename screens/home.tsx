@@ -43,6 +43,7 @@ interface PressableWithIconProps {
 const buttons: PressableWithIconProps[] = [
   { icon: "", title: "User", screen: "Account" },
   { icon: "", title: "Vault", screen: "Vault" },
+  { icon: "", title: "Scan and pay", screen: "Scan" },
 ];
 
 function PressableWithIcon({ icon, title, screen }: PressableWithIconProps) {

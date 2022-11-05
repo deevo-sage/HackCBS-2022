@@ -8,6 +8,10 @@ import { RootStackParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { useWalletConnect } from "@walletconnect/react-native-dapp";
 import { useUserFetch } from "../zustand";
+import { Pay } from "../screens/pay";
+import { Transaction } from "../screens/transaction";
+import { Scan } from "../screens/scan";
+import { Search } from "../screens/search";
 
 export default function Navigation({
   colorScheme,
@@ -81,6 +85,10 @@ function RootNavigator() {
         component={Account}
         options={{ headerBackVisible: false }}
       />
+      <Stack.Screen name="Pay" component={Pay} />
+      <Stack.Screen name="Transaction" component={Transaction} />
+      <Stack.Screen name="Scan" component={Scan} />
+      <Stack.Screen name="Search" component={Search} />
     </Stack.Navigator>
   );
 }

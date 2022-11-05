@@ -13,7 +13,6 @@ import { theme } from "./constants/nativeBase";
 import axios from "axios";
 
 axios.defaults.baseURL =
-  process.env.SERVER_URL ||
   "https://hackcbs-2022-backend-development.up.railway.app/";
 
 export default function App() {
