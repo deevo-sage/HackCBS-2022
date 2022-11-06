@@ -94,22 +94,8 @@ function TxnDetails({ transaction }: { transaction: TxnType }) {
       <Text fontSize="xl" fontWeight={"bold"}>
         Transaction Details
       </Text>
-      {transaction?.chain && <Text>chain : {chainMap[transaction.chain]}</Text>}
+
       {transaction.FIAT && <Text>Fiat amount : ₹ {transaction.FIAT}</Text>}
-      {transaction.Crypto && (
-        <Text>
-          Crypto amount:{" "}
-          {convertCrypto(transaction.Crypto)
-            .split(".")
-            .reduce(
-              (prev, curr, i) =>
-                i === 0 ? prev + curr : prev + "." + curr.substring(0, 4),
-              ""
-            )}
-          &nbsp;
-          {chainToCoin[transaction.chain]}
-        </Text>
-      )}
       {transaction.from && <Text>from : {transaction.from}</Text>}
       {transaction.to && <Text>to : {transaction.to}</Text>}
       {transaction.txnHash && (
