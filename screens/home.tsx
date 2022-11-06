@@ -4,6 +4,9 @@ import { addressCompress } from "../utils";
 import { RootStackParamList, RootStackScreenProps } from "../types";
 import { useNavigation } from "@react-navigation/native";
 import { useUser } from "../zustand";
+import b1 from "../assets/images/qr.png";
+import b2 from "../assets/images/vault.png";
+import b3 from "../assets/images/user.png";
 
 export function Home({ navigation }: RootStackScreenProps<"Home">) {
   const connector = useWalletConnect();
@@ -41,9 +44,9 @@ interface PressableWithIconProps {
 }
 
 const buttons: PressableWithIconProps[] = [
-  { icon: "", title: "User", screen: "Account" },
-  { icon: "", title: "Vault", screen: "Vault" },
-  { icon: "", title: "Scan and pay", screen: "Scan" },
+  { icon: b3, title: "User", screen: "Account" },
+  { icon: b2, title: "Vault", screen: "Vault" },
+  { icon: b1, title: "Scan and pay", screen: "Scan" },
 ];
 
 function PressableWithIcon({ icon, title, screen }: PressableWithIconProps) {
@@ -61,7 +64,7 @@ function PressableWithIcon({ icon, title, screen }: PressableWithIconProps) {
       }}
     >
       <Flex alignItems={"center"} flex="1">
-        <Avatar bg="brand.foreground" mb="2" />
+        <Avatar source={icon} bg="brand.bg" mb="2" />
         <Text>{title}</Text>
       </Flex>
     </Button>
